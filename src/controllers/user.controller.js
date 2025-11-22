@@ -18,7 +18,7 @@ export const login = async(req, res)=>{
     if(!user) return res.status(404).json({message : "Email not found"})
     
     const match = await bcrypt.compare(password, user.password)
-    if(!match) return res.send(401).json({message : "Wrong Password"})
+    if(!match) return res.status(401).json({message : "Wrong Password"})
 
     const token  = jwt.sign(
         {userId : user.userId, role: user.role},

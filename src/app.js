@@ -12,10 +12,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/users", userRoutes);
-app.use("/api/equipment", equipmentRoutes);
-app.use("/api/defects", defectRoutes);
-app.use("/api/notifications", notificationRoutes);
+app.use("/", userRoutes);
+app.use("/equipment", equipmentRoutes);
+app.use("/defects", defectRoutes);
+app.use("/notifications", notificationRoutes);
 
 
 app.get("/", (req, res) => {

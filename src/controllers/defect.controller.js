@@ -25,13 +25,17 @@ export const raiseDefect = async (req, res) => {
 };
 
 export const closeDefect = async (req, res) => {
-  const { defectId } = req.params;
+  const { id } = req.params;
 
   const defect = await DefectReport.findOneAndUpdate(
-    { defectId },
+    { defectId: id },
     { status: "closed" },
     { new: true }
   );
+
+  if(!defect){
+    return res.status(404).json({error: 'Defect not found'})
+  }
 
   await Equipment.findOneAndUpdate(
     { equipmentId: defect.equipmentId },
@@ -41,8 +45,8 @@ export const closeDefect = async (req, res) => {
     }
   );
   sendNotification(
-    defect.reaiseBy,
-    `Your default report ${defectId} has been serviced`
+    defect.raisedBy,
+    `Your defect report ${id} has been serviced`
   );
   res.json(defect);
 };

@@ -5,7 +5,7 @@ import {v4 as uuid} from "uuid"
 
 
 const equipmentSchema = new mongoose.Schema({
-    equipmentId : {type: String, default: uuid},
+    equipmentId : {type: String, default: () => uuid()},
     name:{ type: String},
     currentStatus: {
         type : String,
